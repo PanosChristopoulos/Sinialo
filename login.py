@@ -10,6 +10,10 @@ auth_plugin='mysql_native_password')
 
 mycursor = database.cursor()
 
+
+#loginSuccess=False
+#userCount = 0
+
 def loginSQL(usernameIN,passwordIN):
     mycursor.execute("SELECT username,password FROM users")
     result = mycursor.fetchall()
@@ -18,12 +22,15 @@ def loginSQL(usernameIN,passwordIN):
         if usernameIN == x[0] and passwordIN == x[1]:
             exists = True
     if exists == True:
+        #loginSuccess=True
         print("User",usernameIN, "logged in")
     else:
         print("Log in Unsuccesssful")
-
+        #loginSuccess=False
+        
 def login():
     usernameIN = input("Username: ")
     passwordIN = getpass("Password: ")
     loginSQL(usernameIN,passwordIN)
+    #print(loginSuccess)
 
