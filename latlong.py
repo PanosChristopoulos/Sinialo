@@ -15,6 +15,6 @@ def cityLatLong(city):
     latitude = response_data["Results"][0]["lat"]
     longtitude = response_data["Results"][0]["lon"]
     print(city,"'s latitude is",latitude,"and longtitude is",longtitude)
-    #print(response.text)
+    return latitude,longtitude
 
-cityLatLong('Agrinio')
+
