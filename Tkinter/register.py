@@ -3,7 +3,7 @@ import tkinter as tk
 root = tk.Tk()
 frame_1 = Frame(root)
 root.title('background image')
-fname = "img/register.png"
+fname = "register.png"
 bg_image = tk.PhotoImage(file=fname)
 w = bg_image.width()
 h = bg_image.height()
@@ -20,5 +20,5 @@ entry_3.place(relx = 0.31, rely = 0.46, anchor = CENTER)
 
 
 btn1 = tk.Button(cv, text="Register")
-btn1.pack(side='bottom')
+btn1.place(relx = 0.7, rely = 0.73, anchor = CENTER)
 root.mainloop()
