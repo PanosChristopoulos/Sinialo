@@ -28,11 +28,20 @@ def loginSQL(usernameIN,passwordIN):
     else:
         print("Log in Unsuccesssful")
         loginSuccess=False
-    return loginSuccess
+    return [usernameIN,loginSuccess]
         
 def login():
     usernameIN = input("Username: ")
     passwordIN = getpass("Password: ")
-    loginSQL(usernameIN,passwordIN)
-    #print(loginSuccess)
+    username = loginSQL(usernameIN,passwordIN)[0]
+    loginSuccess = loginSQL(usernameIN,passwordIN)[1]
+    if loginSuccess == True:
+        mycursor.execute('SELECT country_ISO FROM users where username="%s"' %username)
+        result = mycursor.fetchone()
+        country = result[0]
+    print(username)
+    print(country)
+    print(loginSuccess)
+    return [username,loginSuccess,country]
 
+login()
