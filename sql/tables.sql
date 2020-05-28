@@ -12,12 +12,21 @@ CREATE TABLE users (
 CREATE TABLE countries(
 	country_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	country_ISO VARCHAR(50) NOT NULL ,
-   	country_name VARCHAR(255) NOT NULL UNIQUE
+    country_name VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE cities(
 	city_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    	city_name VARCHAR(100) NOT NULL,
-   	country_id INT NOT NULL,
+    city_name VARCHAR(100) NOT NULL,
+    country_id INT NOT NULL,
 CONSTRAINT cityCountry FOREIGN KEY (country_id) REFERENCES `countries`(country_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE airports(
+	airport_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    airportName VARCHAR(255) NOT NULL,
+    city VARCHAR(150) NOT NULL,
+    country_ID VARCHAR(100) NOT NULL,
+    countryName VARCHAR(200) NOT NULL
+    );
+	
