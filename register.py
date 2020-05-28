@@ -1,27 +1,24 @@
-import mysql.connector
-from getpass import getpass
-
-database = mysql.connector.connect(
-user='root',
-password='password',
-host='127.0.0.1', 
-database='sinialo',
-auth_plugin='mysql_native_password')
-
-mycursor = database.cursor()
-
-def registerSQL(username,password,countryISO):
-    sql = "INSERT INTO users (username, password, country_ISO) VALUES (%s, %s, %s)"
-    val = (username,password,countryISO)
-    mycursor.execute(sql, val)
-    database.commit()
-    print("User",username,"added to database")
-
-def register():
-    print("Please Type your Username, Password and country_ISO")
-    usernameIn = input("Username: ")
-    passwordIn = getpass("Password: ")
-    countryISOIn = input("Country ISO: ")
-    registerSQL(usernameIn,passwordIn,countryISOIn)
+from tkinter import *
+import tkinter as tk
+root = tk.Tk()
+frame_1 = Frame(root)
+root.title('background image')
+fname = "ab.png"
+bg_image = tk.PhotoImage(file=fname)
+w = bg_image.width()
+h = bg_image.height()
+root.geometry("%dx%d+50+30" % (w, h))
+cv = tk.Canvas(width=w, height=h)
+cv.pack(side='top', fill='both', expand='yes')
+cv.create_image(0, 0, image=bg_image, anchor='nw')
+entry_1 = Entry(root)
+entry_2 = Entry(root)
+entry_3 = Entry(root)
+entry_1.place(relx = 0.31, rely = 0.58, anchor = CENTER)
+entry_2.place(relx = 0.31, rely = 0.69, anchor = CENTER)
+entry_3.place(relx = 0.31, rely = 0.46, anchor = CENTER)
 
 
+btn1 = tk.Button(cv, text="Register")
+btn1.pack(side='bottom')
+root.mainloop()
