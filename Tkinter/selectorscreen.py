@@ -3,7 +3,7 @@ import tkinter as tk
 root = tk.Tk()
 frame_1 = Frame(root)
 root.title('background image')
-fname = "selectorscreen.png"
+fname = "img/selectorscreen.png"
 bg_image = tk.PhotoImage(file=fname)
 w = bg_image.width()
 h = bg_image.height()
