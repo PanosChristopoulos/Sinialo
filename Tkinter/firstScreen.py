@@ -4,7 +4,7 @@ root = Tk()
 
 root.geometry("375x650")
 root.resizable(False,False)
-
+root.title("Sinialo")
 image3 = ImageTk.PhotoImage(Image.open("img/bg.png"))
 label3 = Label(image = image3,bg="CadetBlue1")
 label3.place(x=0,y=0,relwidth=1, relheight=1)
