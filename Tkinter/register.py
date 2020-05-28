@@ -19,6 +19,6 @@ entry_2.place(relx = 0.31, rely = 0.69, anchor = CENTER)
 entry_3.place(relx = 0.31, rely = 0.46, anchor = CENTER)
 
 
-btn1 = tk.Button(cv, text="Register")
+btn1 = tk.Button(cv,bg="GREEN",fg="WHITE", text="Register")
 btn1.place(relx = 0.7, rely = 0.73, anchor = CENTER)
 root.mainloop()
