@@ -1,36 +1,20 @@
-import mysql.connector
-from getpass import getpass
-
-database = mysql.connector.connect(
-user='root',
-password='password',
-host='127.0.0.1', 
-database='sinialo',
-auth_plugin='mysql_native_password')
-
-mycursor = database.cursor()
-
-
-#loginSuccess=False
-#userCount = 0
-
-def loginSQL(usernameIN,passwordIN):
-    mycursor.execute("SELECT username,password FROM users")
-    result = mycursor.fetchall()
-    exists = False
-    for x in result:
-        if usernameIN == x[0] and passwordIN == x[1]:
-            exists = True
-    if exists == True:
-        #loginSuccess=True
-        print("User",usernameIN, "logged in")
-    else:
-        print("Log in Unsuccesssful")
-        #loginSuccess=False
-        
-def login():
-    usernameIN = input("Username: ")
-    passwordIN = getpass("Password: ")
-    loginSQL(usernameIN,passwordIN)
-    #print(loginSuccess)
-
+from tkinter import *
+import tkinter as tk
+root = tk.Tk()
+frame_1 = Frame(root)
+root.title('background image')
+fname = "aaaaa.png"
+bg_image = tk.PhotoImage(file=fname)
+w = bg_image.width()
+h = bg_image.height()
+root.geometry("%dx%d+50+30" % (w, h))
+cv = tk.Canvas(width=w, height=h)
+cv.pack(side='top', fill='both', expand='yes')
+cv.create_image(0, 0, image=bg_image, anchor='nw')
+entry_1 = Entry(root)
+entry_2 = Entry(root)
+entry_1.place(relx = 0.3, rely = 0.6, anchor = CENTER)
+entry_2.place(relx = 0.3, rely = 0.43, anchor = CENTER)
+btn1 = tk.Button(cv, text="Login")
+btn1.pack(side='bottom')
+root.mainloop()
