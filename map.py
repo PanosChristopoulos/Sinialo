@@ -12,21 +12,23 @@ m.drawcoastlines()
 m.fillcontinents(color='tan',lake_color='lightblue')
 # draw parallels and meridians.
 
-m.drawmapboundary(fill_color='lightblue')
-
+m.drawmapboundary(fill_color='#A6CAE0', linewidth=0)
+m.fillcontinents(color='grey', alpha=0.7, lake_color='grey')
+m.drawcoastlines(linewidth=0.1, color="white")
 
 # Map (long, lat) to (x, y) for plotting
 def cityMap(city):
+    city = city.split(' ', 1)[0]
+    city = city.split('/',1)[0]
+    city = city.split('-',1)[0]
     lat = cityLatLong(city)[0]
     longt = cityLatLong(city)[1]
-    print(lat,longt)
+    #print(lat,longt)
     x, y = m(longt, lat)
-    plt.plot(x, y, 'ok', markersize=5)
-    plt.text(x, y, city, fontsize=10);
-cityMap('Agrinio')
-cityMap('Dublin')
-cityMap('Guantanamo')
-cityMap('Tirana')
-cityMap('Ouagadougou')
-cityMap('Kingali')
+    plt.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
+    plt.text(x, y, city, fontsize=14, color="white");
+    
+cityMap('Athens')
+cityMap('Ankara Esenboga')
+cityMap('Sofia')
 plt.show()
