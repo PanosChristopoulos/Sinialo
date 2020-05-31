@@ -33,6 +33,7 @@ def main():
     frame_1 = Frame(root)
     root.title('background image')
     photo=PhotoImage(file="img/button_4.png")
+    photo4=PhotoImage(file="img/profile_2.png")
     image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
     label3 = Label(root,image = image3)
     label3.place(x=0,y=0)
@@ -64,6 +65,8 @@ def main():
     btn3.place(relx = 0.24, rely = 0.20, anchor = CENTER)
     btn4 = tk.Button(root, width=10,text="Return",bg = "RED",fg="BLACK")
     btn4.place(relx = 0.05, rely = 0.08, anchor = CENTER)
+    btn5 = tk.Button(root,image=photo4)
+    btn5.place(relx = 0.145, rely = 0.083, anchor = CENTER)
     
 	
     root.mainloop()    
