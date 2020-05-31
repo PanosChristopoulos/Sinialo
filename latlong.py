@@ -14,7 +14,6 @@ def cityLatLong(city):
     response_data = response.json()
     latitude = response_data["Results"][0]["lat"]
     longtitude = response_data["Results"][0]["lon"]
-    print(city,"'s latitude is",latitude,"and longtitude is",longtitude)
-    return latitude,longtitude
-
+    #print(city,"'s latitude is",latitude,"and longtitude is",longtitude)
+    return [latitude,longtitude]
 
