@@ -48,4 +48,4 @@ def login():
     print(loginSuccess)
     return [username,loginSuccess,country]
 
-print(loginSQL('PERIS','DES'))
+loginSQL("PERIS","DES")

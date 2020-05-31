@@ -28,5 +28,5 @@ def cityMap(city):
     plt.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
     plt.text(x, y, city, fontsize=14, color="white");
     
-cityMap('Athens')
+cityMap('lisbon')
 plt.show()

@@ -38,3 +38,4 @@ def countryNameInfo(country):
     for x in bordercount:
         neighborCapitalList.append(countryCodeInfo(borders[x])[1])
     return [name,capital,borders,bordercount,neighborCapitalList]
+
