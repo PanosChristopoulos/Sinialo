@@ -30,3 +30,7 @@ CREATE TABLE airports(
     countryName VARCHAR(200) NOT NULL
     );
 	
+CREATE TABLE preferences(
+	preference_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(150) NOT NULL,
+    preference VARCHAR(250) NOT NULL);
