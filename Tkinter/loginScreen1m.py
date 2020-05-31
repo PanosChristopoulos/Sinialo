@@ -63,10 +63,10 @@ def main():
         #return [username,loginSuccess,country]
 
 
-    btn1 = tk.Button(cv, text="Login" ,bg = "GREEN" ,fg="BLACK",command =login)
-    btn1.place(relx = 0.405, rely = 0.74, anchor = CENTER)
-    btn2 = tk.Button(cv, text="Return",bg = "RED", fg="BLACK")
-    btn2.place(relx = 0.26, rely = 0.74, anchor = CENTER)
+    btn1 = tk.Button(cv,width=10,text="Login" ,bg = "GREEN" ,fg="BLACK",command =login)
+    btn1.place(relx = 0.605, rely = 0.44, anchor = CENTER)
+    btn2 = tk.Button(cv, width=10,text="Return",bg = "RED", fg="BLACK")
+    btn2.place(relx = 0.605, rely = 0.54, anchor = CENTER)
 
 
     root.mainloop()
