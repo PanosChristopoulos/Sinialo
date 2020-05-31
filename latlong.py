@@ -7,7 +7,7 @@ def cityLatLong(city):
 
     headers = {
         'x-rapidapi-host': "devru-latitude-longitude-find-v1.p.rapidapi.com",
-        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
+        'x-rapidapi-key': ""
         }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
