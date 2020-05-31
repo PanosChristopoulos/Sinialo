@@ -1,9 +1,13 @@
 import requests
-from restCountries import *
+import restCountries
+
+
+
+
 
 def skyScannerAirportFinder(country):
     url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/gr-GR/"
-    capital = countryNameInfo(country)[1]
+    capital = restCountries.countryNameInfo(country)[1]
     #print(capital)
     querystring = {"query":capital}
     headers = {
@@ -37,7 +41,7 @@ def skyScannerAirportFinderCity(city):
 def skyScannerNeighbors(country):
     airport1 = skyScannerAirportFinder(country)
     #print(airport1)
-    neighbors = countryNameInfo(country)[4]
+    neighbors = restCountries.countryNameInfo(country)[4]
     #print(neighbors)
     limit1 = range(len(neighbors))
     airport2 = []
@@ -47,7 +51,6 @@ def skyScannerNeighbors(country):
     if ['BRN-sky', 'Bern'] in airport2: airport2.remove(['BRN-sky', 'Bern'])
     limit = range(len(airport2))
     return [airport1,airport2,limit]
-
 
 
 def getFlights(airport1,airport2):
@@ -63,8 +66,8 @@ def getFlights(airport1,airport2):
     #print(results)
     ticket1 = results[1]['MinPrice']
     ticket2 = results[2]['MinPrice']
-    quote1=0
     quote2 = 0
+    quote1 = 0
     for x in limit:
         if results[x]['MinPrice']<ticket1:
             ticket2 = ticket1
@@ -104,6 +107,9 @@ def getNeighborFlights(country):
         outairports.append((getnflights[1][x][1])[:-4])
         dates.append("{}{}{}".format(getnflights[1][x][3][2:4],getnflights[1][x][3][5:7],getnflights[1][x][3][8:10]))
         urls.append("https://gr.skyscanner.com/transport/flights/{}/{}/{}/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=0&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home".format(fromairport[:-4],currOutAirport,dates[x]))    
+
+    
     return [skyScannerNeighbors1[0][1],results,targetairportsfinal,limit,urls]
+
 
 
