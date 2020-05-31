@@ -19,7 +19,7 @@ from PIL import ImageTk,Image
 """
 database=mysql.connector.connect(
     user='root',
-    password='password',
+    password='Aekjim1998@',
     host='127.0.0.1', 
     database='sinialo',
     auth_plugin='mysql_native_password')
@@ -27,65 +27,46 @@ database=mysql.connector.connect(
 mycursor = database.cursor()
 """
 def main():
-	root = tk.Tk()
-	root.geometry("1300x800")
-	root.resizable(False,False)
-	frame_1 = Frame(root)
+    root = tk.Tk()
+    root.geometry("1300x800")
+    root.resizable(False,False)
+    frame_1 = Frame(root)
+    root.title('background image')
+    photo=PhotoImage(file="img/button_4.png")
+    image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
+    label3 = Label(root,image = image3)
+    label3.place(x=0,y=0)
+    photo2=PhotoImage(file="img/button_5.png")
+    photo1=PhotoImage(file="img/button_6.png")
+    warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
+    fig = Figure( figsize=(12, 8) )
+    ax1 = fig.add_subplot(111)
+    m = Basemap(projection='moll',lon_0=0,resolution='c',ax=ax1)    
+    m.drawcoastlines(linewidth=0.1, color="white")
+    m.fillcontinents(color='grey', alpha=0.7, lake_color='grey')
+    m.drawmapboundary(fill_color='#A6CAE0', linewidth=0)	
+    canvas = FigureCanvasTkAgg(fig, root)  ## her7
+    canvas.get_tk_widget().place( x = 380, y = 0,height=795, width=918)
+    def cityMap(city):
+        city = city.split(' ', 1)[0]
+        city = city.split('/',1)[0]
+        city = city.split('-',1)[0]
+        lat = cityLatLong(city)[0]
+        longt = cityLatLong(city)[1]
+        x, y = m(longt, lat)
+        plt.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
+        plt.text(x, y, city, fontsize=14, color="white");
+    btn1 = tk.Button(root,width=100,height=20,image=photo)
+    btn1.place(relx = 0.045, rely = 0.20, anchor = CENTER)
+    btn2 = tk.Button(root,width=110,height=20,image=photo2)
+    btn2.place(relx = 0.14, rely = 0.20, anchor = CENTER)
+    btn3 = tk.Button(root,width=110,height=20,image=photo1)
+    btn3.place(relx = 0.24, rely = 0.20, anchor = CENTER)
+    btn4 = tk.Button(root, width=10,text="Return",bg = "RED",fg="BLACK")
+    btn4.place(relx = 0.05, rely = 0.08, anchor = CENTER)
     
-	root.title('background image')
-	photo=PhotoImage(file="img/button_4.png")
-    
-   
 	
-	#root.resizable(False,False)
-	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
-    
-	label3 = Label(root,image = image3)
-	label3.place(x=0,y=0)
-	photo2=PhotoImage(file="img/button_5.png")	
-    
-	photo1=PhotoImage(file="img/button_6.png")
-
-	warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
-    
-	fig = Figure( figsize=(12, 8) )
-	ax1 = fig.add_subplot(111)
-	m = Basemap(projection='moll',lon_0=0,resolution='c',ax=ax1)    
-	m.drawcoastlines(linewidth=0.1, color="white")
-	m.fillcontinents(color='grey', alpha=0.7, lake_color='grey')
-		# draw parallels and meridians.
-    
-	m.drawmapboundary(fill_color='#A6CAE0', linewidth=0)
-		
-	canvas = FigureCanvasTkAgg(fig, root)  ## her7
-		#canvas.show()
-	canvas.get_tk_widget().place( x = 380, y = 0,height=795, width=918)
-		#pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-		#canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-
-	def cityMap(city):
-		city = city.split(' ', 1)[0]
-		city = city.split('/',1)[0]
-		city = city.split('-',1)[0]
-		lat = cityLatLong(city)[0]
-		longt = cityLatLong(city)[1]
-			#print(lat,longt)
-		x, y = m(longt, lat)
-		plt.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
-		plt.text(x, y, city, fontsize=14, color="white");
-
-	btn1 = tk.Button(root,width=100,height=20,image=photo)
-	btn1.place(relx = 0.045, rely = 0.20, anchor = CENTER)
-	btn2 = tk.Button(root,width=110,height=20,image=photo2)
-	btn2.place(relx = 0.14, rely = 0.20, anchor = CENTER)
-	btn3 = tk.Button(root,width=110,height=20,image=photo1)
-	btn3.place(relx = 0.24, rely = 0.20, anchor = CENTER)
-    
-    
-	    
-
-	    
-	root.mainloop()    
+    root.mainloop()    
  
 
 if __name__=="__main__":
