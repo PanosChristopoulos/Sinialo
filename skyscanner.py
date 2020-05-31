@@ -39,11 +39,13 @@ def skyScannerNeighbors(country):
     #print(airport1)
     neighbors = countryNameInfo(country)[4]
     #print(neighbors)
-    limit = range(len(neighbors))
+    limit1 = range(len(neighbors))
     airport2 = []
-    for x in limit:
+    for x in limit1:
         airport2.append(skyScannerAirportFinderCity(neighbors[x]))
         #print(airport2[0])
+    if ['BRN-sky', 'Bern'] in airport2: airport2.remove(['BRN-sky', 'Bern'])
+    limit = range(len(airport2))
     return [airport1,airport2,limit]
 
 
@@ -61,6 +63,7 @@ def getFlights(airport1,airport2):
     #print(results)
     ticket1 = results[1]['MinPrice']
     ticket2 = results[2]['MinPrice']
+    quote1=0
     quote2 = 0
     for x in limit:
         if results[x]['MinPrice']<ticket1:

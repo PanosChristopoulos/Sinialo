@@ -28,7 +28,11 @@ def loginSQL(usernameIN,passwordIN):
     else:
         print("Log in Unsuccesssful")
         loginSuccess=False
-    return [usernameIN,loginSuccess]
+    if loginSuccess == True:
+        mycursor.execute('SELECT country_ISO FROM users where username="%s"' %usernameIN)
+        result = mycursor.fetchone()
+        country = result[0]
+    return [usernameIN,loginSuccess,country]
         
 def login():
     usernameIN = input("Username: ")
@@ -44,4 +48,4 @@ def login():
     print(loginSuccess)
     return [username,loginSuccess,country]
 
-login()
+print(loginSQL('PERIS','DES'))

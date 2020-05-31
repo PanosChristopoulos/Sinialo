@@ -29,6 +29,4 @@ def cityMap(city):
     plt.text(x, y, city, fontsize=14, color="white");
     
 cityMap('Athens')
-cityMap('Ankara Esenboga')
-cityMap('Sofia')
 plt.show()
