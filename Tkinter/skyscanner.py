@@ -12,7 +12,7 @@ def skyScannerAirportFinder(country):
     querystring = {"query":capital}
     headers = {
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
+        'x-rapidapi-key': ""
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_data = response.json()
@@ -27,7 +27,7 @@ def skyScannerAirportFinderCity(city):
     querystring = {"query":city}
     headers = {
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
+        'x-rapidapi-key': ""
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_data = response.json()
@@ -57,7 +57,7 @@ def getFlights(airport1,airport2):
     url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/{}/{}/anytime".format(airport1,airport2)
     headers = {
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
+        'x-rapidapi-key': ""
         }
     response = requests.request("GET", url, headers=headers)
     response_data = response.json()
