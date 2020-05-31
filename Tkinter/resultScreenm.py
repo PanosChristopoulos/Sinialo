@@ -31,24 +31,30 @@ def main():
 	root.geometry("1300x800")
 	root.resizable(False,False)
 	frame_1 = Frame(root)
+    
 	root.title('background image')
-	
+	photo=PhotoImage(file="img/button_4.png")
+    
+   
 	
 	#root.resizable(False,False)
 	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
+    
 	label3 = Label(root,image = image3)
 	label3.place(x=0,y=0)
-		
-			
-	warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
+	photo2=PhotoImage(file="img/button_5.png")	
+    
+	photo1=PhotoImage(file="img/button_6.png")
 
+	warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
+    
 	fig = Figure( figsize=(12, 8) )
 	ax1 = fig.add_subplot(111)
 	m = Basemap(projection='moll',lon_0=0,resolution='c',ax=ax1)    
 	m.drawcoastlines(linewidth=0.1, color="white")
 	m.fillcontinents(color='grey', alpha=0.7, lake_color='grey')
 		# draw parallels and meridians.
-
+    
 	m.drawmapboundary(fill_color='#A6CAE0', linewidth=0)
 		
 	canvas = FigureCanvasTkAgg(fig, root)  ## her7
@@ -68,13 +74,14 @@ def main():
 		plt.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
 		plt.text(x, y, city, fontsize=14, color="white");
 
-	btn1 = tk.Button(root,width=10,text="Δημοφιλείς" ,bg = "white" ,fg="BLACK")
+	btn1 = tk.Button(root,width=100,height=20,image=photo)
 	btn1.place(relx = 0.045, rely = 0.20, anchor = CENTER)
-	btn2 = tk.Button(root, width=10,text="Αγαπημένοι",bg = "white", fg="BLACK")
+	btn2 = tk.Button(root,width=110,height=20,image=photo2)
 	btn2.place(relx = 0.14, rely = 0.20, anchor = CENTER)
-	btn3 = tk.Button(root,width=10,text="Κοντινοί" ,bg = "white" ,fg="BLACK")
+	btn3 = tk.Button(root,width=110,height=20,image=photo1)
 	btn3.place(relx = 0.24, rely = 0.20, anchor = CENTER)
-
+    
+    
 	    
 
 	    
