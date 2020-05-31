@@ -7,7 +7,7 @@ def countryCodeInfo(countryCode):
     url = "https://restcountries-v1.p.rapidapi.com/alpha/{}".format(countryCode)
     headers = {
         'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
-        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
+        'x-rapidapi-key': ""
         }
     response = requests.request("GET", url, headers=headers)
     response_data = response.json()
@@ -25,7 +25,7 @@ def countryNameInfo(country):
 
     headers = {
         'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
-        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
+        'x-rapidapi-key': ""
         }
 
     response = requests.request("GET", url, headers=headers)
