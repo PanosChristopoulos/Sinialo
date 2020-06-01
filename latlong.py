@@ -2,7 +2,7 @@ import requests
 
 url = "https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php"
 
-def cityLatLong(city):
+def cityLatLong2(city):
     querystring = {"location":city}
 
     headers = {
@@ -17,3 +17,8 @@ def cityLatLong(city):
     #print(city,"'s latitude is",latitude,"and longtitude is",longtitude)
     return [latitude,longtitude]
 
+def cityLatLong(city):
+    g = geocoder.locationiq(city, key='')
+    latitude = g.json['lat']
+    longtitude = g.json['lng']
+    return [latitude,longtitude]
