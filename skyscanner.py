@@ -1,18 +1,14 @@
 import requests
-import restCountries
-
-
-
-
+from restCountries import *
 
 def skyScannerAirportFinder(country):
     url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/gr-GR/"
-    capital = restCountries.countryNameInfo(country)[1]
+    capital = countryNameInfo(country)[1]
     #print(capital)
     querystring = {"query":capital}
     headers = {
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-        'x-rapidapi-key': ""
+        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_data = response.json()
@@ -27,13 +23,14 @@ def skyScannerAirportFinderCity(city):
     querystring = {"query":city}
     headers = {
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-        'x-rapidapi-key': ""
+        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_data = response.json()
     #print(response_data)
     PlaceId = response_data['Places'][0]['PlaceId']
     PlaceName = response_data['Places'][0]['PlaceName']
+    #print("passed city",city)
     return[PlaceId, PlaceName]
 
 
@@ -41,7 +38,7 @@ def skyScannerAirportFinderCity(city):
 def skyScannerNeighbors(country):
     airport1 = skyScannerAirportFinder(country)
     #print(airport1)
-    neighbors = restCountries.countryNameInfo(country)[4]
+    neighbors = countryNameInfo(country)[4]
     #print(neighbors)
     limit1 = range(len(neighbors))
     airport2 = []
@@ -52,36 +49,44 @@ def skyScannerNeighbors(country):
     limit = range(len(airport2))
     return [airport1,airport2,limit]
 
-
 def getFlights(airport1,airport2):
     url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/{}/{}/anytime".format(airport1,airport2)
     headers = {
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-        'x-rapidapi-key': ""
+        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
         }
     response = requests.request("GET", url, headers=headers)
     response_data = response.json()
     results = response_data['Quotes']
     limit = range(2,len(results))
     #print(results)
-    ticket1 = results[1]['MinPrice']
-    ticket2 = results[2]['MinPrice']
-    quote2 = 0
-    quote1 = 0
-    for x in limit:
-        if results[x]['MinPrice']<ticket1:
-            ticket2 = ticket1
-            ticket1 = results[x]['MinPrice']
-            quote1 = x+1
-        elif ticket2 == None or ticket2 > results[x]['MinPrice']:
-            ticket2 = results[x]['MinPrice']
-            quote2 = x+1
-    #print("Incoming flight ticket prices:",quote1,ticket1,"Outgoing flight ticket prices",quote2,ticket2,"Euros")
-    fullprice = ticket1+ticket2
-    flights = []
-    flights.append(results[quote1-1])
-    flights.append(results[quote2-1])
-    departuredate = flights[0]['OutboundLeg']['DepartureDate']
+    try:
+        ticket1 = results[1]['MinPrice']
+        try:
+            ticket2 = results[2]['MinPrice']
+            quote1 = 0
+            quote2 = 0
+            for x in limit:
+                if results[x]['MinPrice']<ticket1:
+                    ticket2 = ticket1
+                    ticket1 = results[x]['MinPrice']
+                    quote1 = x+1
+                elif ticket2 == None or ticket2 > results[x]['MinPrice']:
+                    ticket2 = results[x]['MinPrice']
+                    quote2 = x+1
+            #print("Incoming flight ticket prices:",quote1,ticket1,"Outgoing flight ticket prices",quote2,ticket2,"Euros")
+            fullprice = ticket1+ticket2
+            flights = []
+            flights.append(results[quote1-1])
+            flights.append(results[quote2-1])
+            departuredate = flights[0]['OutboundLeg']['DepartureDate']
+        except:
+            fullprice = 2*ticket1
+            departuredate = results[0]['OutboundLeg']['DepartureDate']
+    except:
+        print("No flights available between",airport1,"and",airport2)
+        fullprice = "0"
+        departuredate = "0"
     return [airport1,airport2,fullprice,departuredate]
 
 def getNeighborFlights(country):
@@ -106,10 +111,16 @@ def getNeighborFlights(country):
         currOutAirport = (getnflights[1][x][1])[:-4]
         outairports.append((getnflights[1][x][1])[:-4])
         dates.append("{}{}{}".format(getnflights[1][x][3][2:4],getnflights[1][x][3][5:7],getnflights[1][x][3][8:10]))
-        urls.append("https://gr.skyscanner.com/transport/flights/{}/{}/{}/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=0&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home".format(fromairport[:-4],currOutAirport,dates[x]))    
-
-    
+        urls.append("https://gr.skyscanner.com/transport/flights/{}/{}/{}/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=0&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home".format(fromairport[:-4],currOutAirport,dates[x]))
+    for x in limit:
+        try:
+            if results[x][2] == '0':
+                del results[x]
+                del targetairportsfinal[x]
+                del urls[x]
+        except:
+            limit = range(len(results))
+    limit = range(len(results))   
     return [skyScannerNeighbors1[0][1],results,targetairportsfinal,limit,urls]
-
 
 
