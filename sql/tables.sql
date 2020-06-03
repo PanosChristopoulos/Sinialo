@@ -3,7 +3,7 @@ USE sinialo;
 
 CREATE TABLE users (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     country_ISO VARCHAR(50) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -30,7 +30,18 @@ CREATE TABLE airports(
     countryName VARCHAR(200) NOT NULL
     );
 	
+    
 CREATE TABLE preferences(
 	preference_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(150) NOT NULL,
     preference VARCHAR(250) NOT NULL);
+
+CREATE TABLE requests(
+	request_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	requestfrom VARCHAR(140) NOT NULL,
+    requestto VARCHAR(140) NOT NULL);
+    
+CREATE TABLE friends(
+	friendship_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    friend1 VARCHAR(140) NOT NULL,
+    friend2 VARCHAR(140) NOT NULL);
