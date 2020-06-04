@@ -34,6 +34,7 @@ CREATE TABLE airports(
 CREATE TABLE preferences(
 	preference_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(150) NOT NULL,
+    city VARCHAR(150) NOT NULL,
     preference VARCHAR(250) NOT NULL);
 
 CREATE TABLE requests(
