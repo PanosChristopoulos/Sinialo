@@ -22,8 +22,8 @@ def addPreference(usernameIN,cityIN):
     if exists == True:
         try:
             cityAirport = skyScannerAirportFinderCity(city)[0]
-            sql = "INSERT INTO preferences (username, preference) VALUES (%s, %s)"
-            val = (usernameIN,cityAirport)
+            sql = "INSERT INTO preferences (username, preference, city) VALUES (%s, %s, %s)"
+            val = (usernameIN,cityAirport,city)
             mycursor.execute(sql, val)
             database.commit()
             print("User",usernameIN,"added to database his prefered city:",city,"and airport",cityAirport)
@@ -42,4 +42,4 @@ def viewPreferences(usernameIN):
     preferences = list(dict.fromkeys(preferences))
     return preferences
 
-print(viewPreferences("PERIS"))
+print(addPreference("kits","δουβλίνο"))
