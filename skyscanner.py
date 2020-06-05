@@ -102,6 +102,7 @@ def getNeighborFlights(country):
        results.append(getFlights(airport1[0],targetairports[x][0]))
        targetairportsfinal.append(targetairports[x][1])
     getnflights = skyScannerNeighbors1[0][1],results,targetairportsfinal,limit
+    #print(getnflights)
     limit = getnflights[3]
     fromairport = getnflights[1][0][0]
     outairports = []
