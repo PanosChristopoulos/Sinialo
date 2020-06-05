@@ -14,45 +14,19 @@ import matplotlib.cbook
 from latlong import *
 from PIL import ImageTk,Image
 import loginScreen1
-import skyscanner
+import popular
 import selectorScreen
-import resultScreenPopular
 import time
+import prefered
+import skyscanner
 import profil
-import resultScreenFavorite
-import webbrowser
-
 
 
 def main():
 
-	database=mysql.connector.connect(
-    user='root',
-    password='Aekjim1998@',
-    host='127.0.0.1', 
-    database='sinialo',
-    auth_plugin='mysql_native_password')
-	mycursor = database.cursor()
-	sessionC=loginScreen1.sess()
-	linkButtons = []
-	def openLink(url):
-		webbrowser.open_new(url)
-
-
-
-
-	root = tk.Tk()
-	root.geometry("1300x800")
-	#root.resizable(False,False)
-	frame_1 = Frame(root)
-	root.title('background image')
-	#root.resizable(False,False)
-
 	def profilFrame():
 		root.destroy()
 		profil.main()
-
-
 	def resultScreenFrame():
 		root.destroy()
 		resultScreen.main()
@@ -64,7 +38,24 @@ def main():
 
 	def resultScreenFavoriteFrame():
 		root.destroy()
-		resultScreenFavorite.main() 
+		resultScreenFavorite.main()
+
+	database=mysql.connector.connect(
+    user='root',
+    password='Aekjim1998@',
+    host='127.0.0.1', 
+    database='sinialo',
+    auth_plugin='mysql_native_password')
+	mycursor = database.cursor()
+	sessionC=loginScreen1.sess()
+	sessionName = loginScreen1.sessName()
+	
+	root = tk.Tk()
+	root.geometry("1300x800")
+	#root.resizable(False,False)
+	frame_1 = Frame(root)
+	root.title('background image')
+	root.resizable(False,False)
 	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
 	label3 = Label(root,image = image3)
 	label3.place(x=0,y=0)
@@ -100,20 +91,11 @@ def main():
 	canvas.get_tk_widget().place( x = 380, y = 0,height=795, width=918)
 	toolbar = NavigationToolbar2TkAgg(canvas , root )
 	toolbar.update()
-	
-	#pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-	#canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-	
-	nearCountries  = skyscanner.getNeighborFlights(sessionC)
-	print(nearCountries)
-	nearCountries2 = nearCountries[2]
-	#print(nearCountries2)
-
-
-	userBudget = selectorScreen.getBudget()
-	userDays = selectorScreen.getDays()
 	userPeople = selectorScreen.getPeople()
-	#print(userBudget,userPeople,userDays)
+	favoriteLocations = prefered.viewPreferences(sessionName)[0]
+	favoriteLocationsCities = prefered.viewPreferences(sessionName)[1]
+	print("jim")
+	print(favoriteLocations)
 	
 	def cityMap(city):
 		lat = cityLatLong(city)[0]
@@ -125,40 +107,27 @@ def main():
 		ax1.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
 		ax1.text(x, y, city, fontsize=14, color="white");
 
-
-	def suitableLocations():
-		suitableLocationsList = []
-		suitablePricesList = []
-		suitableLinksList = []
-		suitableDatesList = []
-		for x in range(len(nearCountries2)):
-			print(nearCountries[1][x][2],userBudget)
-			if userBudget > nearCountries[1][x][2]:
-				suitableLocationsList.append(nearCountries2[x])
-				suitablePricesList.append(nearCountries[1][x][2])
-				suitableDatesList.append(nearCountries[1][x][3])
-				suitableLinksList.append(nearCountries[4][x])
-		print (suitableLocationsList)
-		return [suitableLocationsList,suitablePricesList,suitableDatesList, suitableLinksList]
-
-
-	sLocations =suitableLocations()
-	lb1 = Listbox(root,selectmode = EXTENDED)
-	for x in nearCountries2:
+	userAirport = skyscanner.skyScannerAirportFinder(sessionC)
+	#print("here")
+	#print(userAirport)
+	allLocationAttr = []
+	for x in range(len(favoriteLocations)):
+		#print(favoriteLocations[x])
+		u = skyscanner.getFlights(userAirport[0],favoriteLocations[x])
+		allLocationAttr.append(u)    
+	print(allLocationAttr)	
+	
+	for x in favoriteLocationsCities:
 		time.sleep(1)
 		cityMap(x)
-		
-	
-
-	for y in range(len(sLocations[0])):
+				
+	lb1 = Listbox(root,selectmode = EXTENDED)
+	#print(allLocationAttr[0])
+	for y in range(len(allLocationAttr)):
 		#for k in range(len(nearCountries[1])):
-		lb1.insert(y,("Location:", sLocations[0][y] , "Price:", sLocations[1][y]*userPeople, "Date:",sLocations[2][y] ))
-
-	for i in range(len(sLocations[3])):
-		b = tk.Button(root,height=3 , width = 5,text= i,command =lambda: openLink(sLocations[3][i]))
-		b.place(relx = 0.05+0.08*i, rely = 0.85, anchor = CENTER)
+		lb1.insert(y,("Location", allLocationAttr[y][1] , "Price", allLocationAttr[y][2], "Date",allLocationAttr[y][3] , "Link" ))
+	#, sLocations[3][y]
 	
-
 
 	lb1.place(x=1,y=205, width=375,height= 560)
 	scrollbar = Scrollbar(lb1, orient="vertical")

@@ -7,7 +7,7 @@ def countryCodeInfo(countryCode):
     url = "https://restcountries-v1.p.rapidapi.com/alpha/{}".format(countryCode)
     headers = {
         'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
-        'x-rapidapi-key': ""
+        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
         }
     response = requests.request("GET", url, headers=headers)
     response_data = response.json()
@@ -25,7 +25,7 @@ def countryNameInfo(country):
 
     headers = {
         'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
-        'x-rapidapi-key': ""
+        'x-rapidapi-key': "df61d8e863msh47948b951144384p16523djsn4b480d122f9d"
         }
 
     response = requests.request("GET", url, headers=headers)
@@ -37,4 +37,9 @@ def countryNameInfo(country):
     neighborCapitalList = []
     for x in bordercount:
         neighborCapitalList.append(countryCodeInfo(borders[x])[1])
+    while '' in neighborCapitalList: neighborCapitalList.remove('')
+    if "Thimphu" in neighborCapitalList: neighborCapitalList.remove("Thimphu")
+    if "City of Victoria" in neighborCapitalList: neighborCapitalList.remove("City of Victoria")
+  
+
     return [name,capital,borders,bordercount,neighborCapitalList]

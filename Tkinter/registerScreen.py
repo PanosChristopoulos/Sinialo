@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 import mysql.connector
 from getpass import getpass
-
+import loginScreen1
 def main():
 
 	root = tk.Tk()
@@ -25,7 +25,7 @@ def main():
 
 	database = mysql.connector.connect(
 	user='root',
-	password='password',
+	password='Aekjim1998@',
 	host='127.0.0.1', 
 	database='sinialo',
 	auth_plugin='mysql_native_password')
@@ -45,11 +45,18 @@ def main():
 	    passwordIn = entry_1.get()
 	    countryISOIn = entry_2.get()
 	    registerSQL(usernameIn,passwordIn,countryISOIn)
+	    root.destroy()
+	    loginScreen1.main()
+
+	def loginFrame():
+		root.destroy()
+		loginScreen1.main()
 
 
-
-	btn1 = tk.Button(cv,bg="GREEN",fg="WHITE", text="Register",command=register)
-	btn1.place(relx = 0.7, rely = 0.73, anchor = CENTER)
+	btn1 = tk.Button(cv,bg="GREEN",fg="WHITE", text="Register",width=15,command=register)
+	btn1.place(relx = 0.7, rely = 0.43, anchor = CENTER)
+	btn1 = tk.Button(cv,bg="RED",fg="WHITE", text="BACK", width=15,command=loginFrame)
+	btn1.place(relx = 0.7, rely = 0.63, anchor = CENTER)
 	root.mainloop()
 
 if __name__=="__main__":

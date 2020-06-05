@@ -4,8 +4,10 @@ from tkinter import *
 from tkinter import messagebox
 import selectorScreen
 import tkinter as tk
+import registerScreen
 
-sessionCountry="Spain"
+sessionCountry=""
+sessionName = ""
 
 def main():
 
@@ -13,7 +15,7 @@ def main():
 
     database=mysql.connector.connect(
     user='root',
-    password='password',
+    password='Aekjim1998@',
     host='127.0.0.1', 
     database='sinialo',
     auth_plugin='mysql_native_password')
@@ -36,9 +38,14 @@ def main():
     cv.create_image(0, 0, image=bg_image, anchor='nw')
     entry_1 = tk.Entry(root, show = "*")
     entry_2 = tk.Entry(root)
-    entry_1.place(relx = 0.3, rely = 0.6, anchor = CENTER)
-    entry_2.place(relx = 0.3, rely = 0.43, anchor = CENTER)
+    entry_1.place(relx = 0.5, rely = 0.68, anchor = CENTER,height=30)
+    entry_2.place(relx = 0.5, rely = 0.48, anchor = CENTER ,height=30)
+    #entry_1.place(relx = 0.3, rely = 0.6, anchor = CENTER)
+    #entry_2.place(relx = 0.3, rely = 0.43, anchor = CENTER)
 
+    def registerFrame():
+        root.destroy()
+        registerScreen.main()
 
     def selectorFrame():
         root.destroy()
@@ -59,6 +66,8 @@ def main():
                 exists = True
         if exists == True:
             loginSuccess=True
+            global sessionName
+            sessionName = usernameIN
             print("User",usernameIN, "logged in")
             mycursor.execute('SELECT country_ISO FROM users where username="%s"' %usernameIN)
             result = mycursor.fetchone()
@@ -89,15 +98,20 @@ def main():
 
 
 
-    btn1 = tk.Button(cv, text="Login" , command =login)
-    btn1.pack(side='bottom')
+    btn1 = tk.Button(cv, bg="GREEN",fg="WHITE", text="Login", width=15, command =login)
+    btn1.place(relx = 0.5, rely = 0.75, anchor = CENTER)
+    btn2 = tk.Button(cv,bg="RED",fg="WHITE", text="Register", width=15, command =registerFrame)
+    btn2.place(relx = 0.5, rely = 0.83, anchor = CENTER)
 
    
 
     
     
     root.mainloop()
-    
+
+def sessName():
+    return sessionName
+  
 def sess():
     
     return sessionCountry

@@ -87,7 +87,7 @@ def getFlights(airport1,airport2):
         print("No flights available between",airport1,"and",airport2)
         fullprice = "0"
         departuredate = "0"
-    return [airport1,airport2,float(fullprice),departuredate]
+    return [airport1,airport2,fullprice,departuredate]
 
 def getNeighborFlights(country):
     skyScannerNeighbors1 = skyScannerNeighbors(country)
@@ -102,7 +102,6 @@ def getNeighborFlights(country):
        results.append(getFlights(airport1[0],targetairports[x][0]))
        targetairportsfinal.append(targetairports[x][1])
     getnflights = skyScannerNeighbors1[0][1],results,targetairportsfinal,limit
-    #print(getnflights)
     limit = getnflights[3]
     fromairport = getnflights[1][0][0]
     outairports = []
