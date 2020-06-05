@@ -109,4 +109,34 @@ def viewFriends(user):
             friends.append(requests[x][0])
     return friends
 
-print(viewFriends("Khtsos"))
+def deleteFriend(user,friend):
+    mycursor.execute("SELECT friend1,friend2 FROM friends")
+    friends = mycursor.fetchall()
+    print(friends)
+    for x in range(len(friends)):
+        if friends[x][0] == user:
+            try:
+                sql = "DELETE FROM friends WHERE friend1 = %s and friend2 = %s"
+                val = (user,friend)
+                mycursor.execute(sql, val)
+                database.commit()
+            except:
+                print("no friendship found")
+        elif friends[x][1] == user:
+            try:
+                sql = "DELETE FROM friends WHERE friend1 = %s  and friend2 = %s"
+                val = (friend,user)
+                mycursor.execute(sql,val)
+                database.commit()
+            except:
+                print("no friendship found")
+        else:
+            print("No friendship found")
+
+def viewRequests(user):
+    mycursor.execute("SELECT requestfrom FROM requests WHERE requestto='{}'".format(user))
+    requests = mycursor.fetchall()
+    for x in range(len(requests)):
+        print(requests[x][0])
+    
+viewRequests("Khtsos")
