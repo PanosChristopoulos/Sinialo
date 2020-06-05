@@ -34,12 +34,14 @@ def addPreference(usernameIN,cityIN):
 
 
 def viewPreferences(usernameIN):
-    mycursor.execute("SELECT preference FROM preferences WHERE username = '{}'".format(usernameIN))
+    mycursor.execute("SELECT preference,city FROM preferences WHERE username = '{}'".format(usernameIN))
     preferenceResults = mycursor.fetchall()
     preferences = []
+    cities = []
     for x in range(len(preferenceResults)):
         preferences.append(preferenceResults[x][0])
+        cities.append(preferenceResults[x][1])
     preferences = list(dict.fromkeys(preferences))
-    return preferences
+    return [preferences,cities]
 
-print(addPreference("kits","δουβλίνο"))
+print(viewPreferences("xlhmis"))
