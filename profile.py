@@ -1,5 +1,11 @@
 import mysql.connector
 from getpass import getpass
+from tkinter import *
+from tkinter import ttk
+import tkinter as tk
+
+style = ttk.Style()
+style.configure("BW.TLabel", foreground="black", background="white")
 
 database = mysql.connector.connect(
 user='root',
@@ -133,10 +139,38 @@ def deleteFriend(user,friend):
         else:
             print("No friendship found")
 
+popup = tk.Tk()
+def acceptFunct(user,userRequest):
+    addFriend(user,userRequest)
+    popup.destroy()
+def declineFunct(user,userRequest):
+    sql = "DELETE FROM requests WHERE requestfrom = %s and requestto = %s"
+    val = (userRequest,user)
+    mycursor.execute(sql, val)
+    database.commit()
+    popup.destroy()  
+
+def popupmsg(user,userRequest):
+    popup = tk.Tk()
+    popup.wm_title(userRequest)  
+    label = ttk.Label(popup, text = "Έχετε αίτημα φιλίας από το χρήστη "+userRequest, font = NORMAL)
+    label.pack(side="top",fill="x",pady=10)
+    B1 = ttk.Button(popup,text="Αποδοχή",command = acceptFunct(user,userRequest))
+    B1.pack()
+    B2 = ttk.Button(popup,text="Απόρριψη",command = popup.destroy)
+    B2.pack()
+    popup.mainloop()
+
+
+
+
+
 def viewRequests(user):
     mycursor.execute("SELECT requestfrom FROM requests WHERE requestto='{}'".format(user))
     requests = mycursor.fetchall()
+    print(requests)
     for x in range(len(requests)):
-        print(requests[x][0])
-    
+        popupmsg(user,requests[x][0])
+
+
 viewRequests("Khtsos")
