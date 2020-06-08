@@ -14,37 +14,17 @@ import matplotlib.cbook
 from latlong import *
 from PIL import ImageTk,Image
 import loginScreen1
-import popular
-import selectorScreen
-import time
-import prefered
 import skyscanner
+import selectorScreen
+import resultScreenPopular
+import time
 import profil
-import resultScreenCheapest
+import resultScreenFavorite
+import webbrowser
+import cheapest
+
 
 def main():
-
-	def resultScreenCheapestFrame():
-		root.destroy()
-		resultScreenCheapest.main()
-
-	def profilFrame():
-		root.destroy()
-		profil.main()
-	def resultScreenFrame():
-		root.destroy()
-		resultScreen.main()
-	def loginScreen1Frame():
-		root.destroy()
-		loginScreen1.main()
-
-	def resultScreenPopularFrame():
-		root.destroy()
-		resultScreenPopular.main()
-
-	def resultScreenFavoriteFrame():
-		root.destroy()
-		main()
 
 	database=mysql.connector.connect(
     user='root',
@@ -54,14 +34,42 @@ def main():
     auth_plugin='mysql_native_password')
 	mycursor = database.cursor()
 	sessionC=loginScreen1.sess()
-	sessionName = loginScreen1.sessName()
 	
+	def openLink(url):
+		webbrowser.open_new(url)
+
+
+
+
 	root = tk.Tk()
 	root.geometry("1300x800")
 	root.resizable(False,False)
 	frame_1 = Frame(root)
 	root.title('background image')
-	root.resizable(False,False)
+	#root.resizable(False,False)
+
+	def profilFrame():
+		root.destroy()
+		profil.main()
+	def resultScreenCheapestFrame():
+		root.destroy()
+		main()
+	def loginScreen1Frame():
+		root.destroy()
+		loginScreen1.main()
+
+	def resultScreenFrame():
+		root.destroy()
+		resultScreen.main()
+	
+
+	def resultScreenPopularFrame():
+		root.destroy()
+		resultScreenPopular.main()
+
+	def resultScreenFavoriteFrame():
+		root.destroy()
+		resultScreenFavorite.main() 
 	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
 	label3 = Label(root,image = image3)
 	label3.place(x=0,y=0)
@@ -100,11 +108,16 @@ def main():
 	canvas.get_tk_widget().place( x = 380, y = 0,height=795, width=918)
 	toolbar = NavigationToolbar2TkAgg(canvas , root )
 	toolbar.update()
+	
+	cheapestArray = cheapest.cheapestFlightsCountry(sessionC)
+	#print("monoaek")
+	#print (cheapestCountries)
+
+
+	userBudget = selectorScreen.getBudget()
+	userDays = selectorScreen.getDays()
 	userPeople = selectorScreen.getPeople()
-	favoriteLocations = prefered.viewPreferences(sessionName)[0]
-	favoriteLocationsCities = prefered.viewPreferences(sessionName)[1]
-	print("jim")
-	print(favoriteLocations)
+	#print(userBudget,userPeople,userDays)
 	
 	def cityMap(city):
 		lat = cityLatLong(city)[0]
@@ -116,30 +129,24 @@ def main():
 		ax1.plot(x, y, 'ok',  marker="o", markersize=8, alpha=0.6, c="blue", markeredgecolor="black", markeredgewidth=1)
 		ax1.text(x, y, city, fontsize=14, color="white");
 
-	userAirport = skyscanner.skyScannerAirportFinder(sessionC)
-	#print("here")
-	#print(userAirport)
-	allLocationAttr = []
-	for x in range(len(favoriteLocations)):
-		#print(favoriteLocations[x])
-		u = skyscanner.getFlights(userAirport[0],favoriteLocations[x])
-		allLocationAttr.append(u)    
-	print(allLocationAttr)	
-	
-	for x in favoriteLocationsCities:
+	for x in range(len(cheapestArray)):
+		k = cheapestArray[x][3]
 		time.sleep(1)
-		cityMap(x)
-				
+		cityMap(k)
+
 	lb1 = Listbox(root,selectmode = EXTENDED)
-	#print(allLocationAttr[0])
-	for y in range(len(allLocationAttr)):
-		#for k in range(len(nearCountries[1])):
-		lb1.insert(y,("Location", allLocationAttr[y][1] , "Price", allLocationAttr[y][2], "Date",allLocationAttr[y][3]  ))
 	
-	for i in range(len(allLocationAttr[0])):
-		b = tk.Button(root,height=1 , width = 5,text= "Link {:d}".format(i+1),bg="skyBlue1",command =lambda: openLink(allLocationAttr[i][4]))
+	
+	for y in range(len(cheapestArray)):
+		#for k in range(len(nearCountries[1])):
+		lb1.insert(y,("Location:", cheapestArray[y][3] , "Total Price:", cheapestArray[y][0]*userPeople, "Date:",cheapestArray[y][1] ))
+
+	
+	for i in range(len(cheapestArray)):
+		b = tk.Button(root,height=1 , width = 5,text= "Link {:d}".format(i+1),bg="skyBlue1",command =lambda x=cheapestArray[i][4]: openLink(x))
 		b.place(relx = 0.35+0.08*i, rely = 0.1, anchor = CENTER)
 	
+
 
 	lb1.place(x=1,y=205, width=375,height= 560)
 	scrollbar = Scrollbar(lb1, orient="vertical")

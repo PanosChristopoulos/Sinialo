@@ -36,10 +36,10 @@ def main():
     cv = tk.Canvas(width=w, height=h)
     cv.pack(side='top', fill='both', expand='yes')
     cv.create_image(0, 0, image=bg_image, anchor='nw')
-    entry_1 = tk.Entry(root, show = "*")
-    entry_2 = tk.Entry(root)
-    entry_1.place(relx = 0.5, rely = 0.68, anchor = CENTER,height=30)
-    entry_2.place(relx = 0.5, rely = 0.48, anchor = CENTER ,height=30)
+    entry_1 = tk.Entry(root)
+    entry_2 = tk.Entry(root, show = "*")
+    entry_1.place(relx = 0.5, rely = 0.48, anchor = CENTER,height=30)
+    entry_2.place(relx = 0.5, rely = 0.68, anchor = CENTER ,height=30)
     #entry_1.place(relx = 0.3, rely = 0.6, anchor = CENTER)
     #entry_2.place(relx = 0.3, rely = 0.43, anchor = CENTER)
 
@@ -86,8 +86,8 @@ def main():
             
     def login():
         #usernameIN = input("Username: ")
-        usernameIN = entry_2.get()
-        passwordIN = entry_1.get()
+        usernameIN = entry_1.get()
+        passwordIN = entry_2.get()
         print(usernameIN)
         print(passwordIN)
         #passwordIN = getpass("Password: ")
@@ -98,9 +98,9 @@ def main():
 
 
 
-    btn1 = tk.Button(cv, bg="GREEN",fg="WHITE", text="Login", width=15, command =login)
+    btn1 = tk.Button(cv, bg="seaGreen3",fg="WHITE", text="Login", width=15, command =login)
     btn1.place(relx = 0.5, rely = 0.75, anchor = CENTER)
-    btn2 = tk.Button(cv,bg="RED",fg="WHITE", text="Register", width=15, command =registerFrame)
+    btn2 = tk.Button(cv,bg = "tomato2",border="0",fg="WHITE", text="Register", width=15, command =registerFrame)
     btn2.place(relx = 0.5, rely = 0.83, anchor = CENTER)
 
    

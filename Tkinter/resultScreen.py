@@ -21,6 +21,7 @@ import time
 import profil
 import resultScreenFavorite
 import webbrowser
+import resultScreenCheapest
 
 
 
@@ -43,19 +44,26 @@ def main():
 
 	root = tk.Tk()
 	root.geometry("1300x800")
-	#root.resizable(False,False)
+	root.resizable(False,False)
 	frame_1 = Frame(root)
 	root.title('background image')
 	#root.resizable(False,False)
+
+	def resultScreenCheapestFrame():
+		root.destroy()
+		resultScreenCheapest.main()
 
 	def profilFrame():
 		root.destroy()
 		profil.main()
 
+	def loginScreen1Frame():
+		root.destroy()
+		loginScreen1.main()
 
 	def resultScreenFrame():
 		root.destroy()
-		resultScreen.main()
+		main()
 	
 
 	def resultScreenPopularFrame():
@@ -68,19 +76,23 @@ def main():
 	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
 	label3 = Label(root,image = image3)
 	label3.place(x=0,y=0)
-	photo=PhotoImage(file="img/button_4.png")
+	photo=PhotoImage(file="img/button_7.png")
 	photo4=PhotoImage(file="img/profile_2.png")
 	photo2=PhotoImage(file="img/button_5.png")
 	photo1=PhotoImage(file="img/button_6.png")
-	btn1 = tk.Button(root,width=100,height=20,image=photo,command=resultScreenFrame)
-	btn1.place(relx = 0.045, rely = 0.20, anchor = CENTER)
-	btn2 = tk.Button(root,width=110,height=20,image=photo2,command=resultScreenPopularFrame)
-	btn2.place(relx = 0.14, rely = 0.20, anchor = CENTER)
-	btn3 = tk.Button(root,width=110,height=20,image=photo1,command=resultScreenFavoriteFrame)
-	btn3.place(relx = 0.24, rely = 0.20, anchor = CENTER)
-	btn4 = tk.Button(root, width=10,text="Return",bg = "RED",fg="BLACK")
-	btn4.place(relx = 0.05, rely = 0.08, anchor = CENTER)
-	btn5 = tk.Button(root,image=photo4,command=profilFrame)
+	photo5=PhotoImage(file="img/oikonomikos.png")
+	#linkphoto=PhotoImage(file="img/linkPhoto.png")
+	btnOik = tk.Button(root,width=145,height=30,image=photo5,command=resultScreenCheapestFrame)
+	btnOik.place(relx = 0.23, rely = 0.23, anchor = CENTER)
+	btn1 = tk.Button(root,width=145,height=30,image=photo,command=resultScreenFrame)
+	btn1.place(relx = 0.056, rely = 0.18, anchor = CENTER)
+	btn2 = tk.Button(root,width=145,height=30,image=photo2,command=resultScreenPopularFrame)
+	btn2.place(relx = 0.056, rely = 0.23, anchor = CENTER)
+	btn3 = tk.Button(root,width=145,height=30,image=photo1,command=resultScreenFavoriteFrame)
+	btn3.place(relx = 0.23, rely = 0.18, anchor = CENTER)
+	btn4 = tk.Button(root, width=10,text="Return",bg = "tomato2",fg="BLACK",border="0",command=loginScreen1Frame)
+	btn4.place(relx = 0.047, rely = 0.08, anchor = CENTER)
+	btn5 = tk.Button(root,image=photo4,command=profilFrame,border="0")
 	btn5.place(relx = 0.145, rely = 0.083, anchor = CENTER)
 		
 	warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
@@ -105,7 +117,7 @@ def main():
 	#canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 	
 	nearCountries  = skyscanner.getNeighborFlights(sessionC)
-	print(nearCountries)
+	
 	nearCountries2 = nearCountries[2]
 	#print(nearCountries2)
 
@@ -138,7 +150,6 @@ def main():
 				suitablePricesList.append(nearCountries[1][x][2])
 				suitableDatesList.append(nearCountries[1][x][3])
 				suitableLinksList.append(nearCountries[4][x])
-		print (suitableLocationsList)
 		return [suitableLocationsList,suitablePricesList,suitableDatesList, suitableLinksList]
 
 
@@ -154,9 +165,10 @@ def main():
 		#for k in range(len(nearCountries[1])):
 		lb1.insert(y,("Location:", sLocations[0][y] , "Price:", sLocations[1][y]*userPeople, "Date:",sLocations[2][y] ))
 
+	
 	for i in range(len(sLocations[3])):
-		b = tk.Button(root,height=3 , width = 5,text= i,command =lambda: openLink(sLocations[3][i]))
-		b.place(relx = 0.05+0.08*i, rely = 0.85, anchor = CENTER)
+		b = tk.Button(root,height=1 , width = 5,text= "Link {:d}".format(i+1),bg="skyBlue1",command =lambda x=sLocations[3][i]: openLink(x))
+		b.place(relx = 0.35+0.08*i, rely = 0.1, anchor = CENTER)
 	
 
 

@@ -34,7 +34,7 @@ def main():
 	entry_1.place(width=100, relx = 0.3, rely = 0.43, anchor = CENTER)
 	entry_2.place(width=100, relx = 0.52, rely = 0.43, anchor = CENTER)
 	entry_3.place(width=100, relx = 0.75, rely = 0.43, anchor = CENTER)
-	btn1 = tk.Button(cv, text="Submit",bg = "GREEN",fg="WHITE",command=resultFrame)
+	btn1 = tk.Button(cv, text="Submit",bg = "seaGreen3",fg="WHITE",command=resultFrame)
 	btn1.place(relx = 0.8, rely = 0.55, anchor = CENTER)
 
 	def getAtr():

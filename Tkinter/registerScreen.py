@@ -16,12 +16,12 @@ def main():
 	cv = tk.Canvas(width=w, height=h)
 	cv.pack(side='top', fill='both', expand='yes')
 	cv.create_image(0, 0, image=bg_image, anchor='nw')
-	entry_1 = Entry(root,show="*")
-	entry_2 = Entry(root)
+	entry_1 = Entry(root)
+	entry_2 = Entry(root,show="*")
 	entry_3 = Entry(root)
-	entry_1.place(relx = 0.31, rely = 0.58, anchor = CENTER)
-	entry_2.place(relx = 0.31, rely = 0.69, anchor = CENTER)
-	entry_3.place(relx = 0.31, rely = 0.46, anchor = CENTER)
+	entry_1.place(relx = 0.31, rely = 0.46, anchor = CENTER)
+	entry_2.place(relx = 0.31, rely = 0.58, anchor = CENTER)
+	entry_3.place(relx = 0.31, rely = 0.69, anchor = CENTER)
 
 	database = mysql.connector.connect(
 	user='root',
@@ -41,9 +41,9 @@ def main():
 
 	def register():
 	    print("Please Type your Username, Password and country_ISO")
-	    usernameIn = entry_3.get()
-	    passwordIn = entry_1.get()
-	    countryISOIn = entry_2.get()
+	    usernameIn = entry_1.get()
+	    passwordIn = entry_2.get()
+	    countryISOIn = entry_3.get()
 	    registerSQL(usernameIn,passwordIn,countryISOIn)
 	    root.destroy()
 	    loginScreen1.main()
@@ -53,9 +53,9 @@ def main():
 		loginScreen1.main()
 
 
-	btn1 = tk.Button(cv,bg="GREEN",fg="WHITE", text="Register",width=15,command=register)
+	btn1 = tk.Button(cv,bg="seaGreen3",fg="WHITE", text="Register",width=15,command=register)
 	btn1.place(relx = 0.7, rely = 0.43, anchor = CENTER)
-	btn1 = tk.Button(cv,bg="RED",fg="WHITE", text="BACK", width=15,command=loginFrame)
+	btn1 = tk.Button(cv,bg="tomato2",fg="WHITE", text="BACK", width=15,command=loginFrame)
 	btn1.place(relx = 0.7, rely = 0.63, anchor = CENTER)
 	root.mainloop()
 

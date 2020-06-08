@@ -108,3 +108,4 @@ def viewFriends(user):
         elif requests[x][1] == user:
             friends.append(requests[x][0])
     return friends
+print(viewFriends("fitsoulas"))

@@ -19,7 +19,7 @@ import selectorScreen
 import time
 import profil
 import resultScreen
-
+import resultScreenCheapest
 
 
 def main():
@@ -33,6 +33,13 @@ def main():
 	mycursor = database.cursor()
 	sessionC=loginScreen1.sess()
 	
+	def resultScreenCheapestFrame():
+		root.destroy()
+		resultScreenCheapest.main()
+	def loginScreen1Frame():
+		root.destroy()
+		loginScreen1.main()
+
 	def profilFrame():
 		root.destroy()
 		profil.main()
@@ -43,7 +50,7 @@ def main():
 	
 	def resultScreenPopularFrame():
 		root.destroy()
-		resultScreenPopular.main()
+		main()
 
 	def resultScreenFavoriteFrame():
 		root.destroy()
@@ -52,7 +59,7 @@ def main():
 
 	root = tk.Tk()
 	root.geometry("1300x800")
-	#root.resizable(False,False)
+	root.resizable(False,False)
 	frame_1 = Frame(root)
 	root.title('background image')
 	#root.resizable(False,False)
@@ -63,15 +70,18 @@ def main():
 	photo4=PhotoImage(file="img/profile_2.png")
 	photo2=PhotoImage(file="img/button_5.png")
 	photo1=PhotoImage(file="img/button_6.png")
-	btn1 = tk.Button(root,width=100,height=20,image=photo,command =resultScreenFrame)
-	btn1.place(relx = 0.045, rely = 0.20, anchor = CENTER)
-	btn2 = tk.Button(root,width=110,height=20,image=photo2,command = resultScreenPopularFrame)
-	btn2.place(relx = 0.14, rely = 0.20, anchor = CENTER)
-	btn3 = tk.Button(root,width=110,height=20,image=photo1,command=resultScreenFavoriteFrame)
-	btn3.place(relx = 0.24, rely = 0.20, anchor = CENTER)
-	btn4 = tk.Button(root, width=10,text="Return",bg = "RED",fg="BLACK")
-	btn4.place(relx = 0.05, rely = 0.08, anchor = CENTER)
-	btn5 = tk.Button(root,image=photo4,command=profilFrame)
+	photo5=PhotoImage(file="img/oikonomikos.png")
+	btnOik = tk.Button(root,width=145,height=30,image=photo5,command=resultScreenCheapestFrame)
+	btnOik.place(relx = 0.23, rely = 0.23, anchor = CENTER)
+	btn1 = tk.Button(root,width=145,height=30,image=photo,command=resultScreenFrame)
+	btn1.place(relx = 0.056, rely = 0.18, anchor = CENTER)
+	btn2 = tk.Button(root,width=145,height=30,image=photo2,command=resultScreenPopularFrame)
+	btn2.place(relx = 0.056, rely = 0.23, anchor = CENTER)
+	btn3 = tk.Button(root,width=145,height=30,image=photo1,command=resultScreenFavoriteFrame)
+	btn3.place(relx = 0.23, rely = 0.18, anchor = CENTER)
+	btn4 = tk.Button(root, width=10,text="Return",bg = "tomato2",fg="BLACK",border="0",command=loginScreen1Frame)
+	btn4.place(relx = 0.047, rely = 0.08, anchor = CENTER)
+	btn5 = tk.Button(root,image=photo4,command=profilFrame,border="0")
 	btn5.place(relx = 0.145, rely = 0.083, anchor = CENTER)
 		
 	warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
@@ -144,8 +154,12 @@ def main():
 
 	for y in range(len(sLocations[0])):
 		#for k in range(len(nearCountries[1])):
-		lb1.insert(y,("Location", sLocations[0][y] , "Price", sLocations[1][y]*userPeople, "Date",sLocations[2][y] , "Link" ))
+		lb1.insert(y,("Location", sLocations[0][y] , "Price", sLocations[1][y]*userPeople, "Date",sLocations[2][y]  ))
 	#, sLocations[3][y]
+	
+	for i in range(len(sLocations[0])):
+		b = tk.Button(root,height=1 , width = 5,text= "Link {:d}".format(i+1),bg="skyBlue1",command =lambda: openLink(sLocations[3][i]))
+		b.place(relx = 0.35+0.08*i, rely = 0.1, anchor = CENTER)
 	
 
 	lb1.place(x=1,y=205, width=375,height= 560)
