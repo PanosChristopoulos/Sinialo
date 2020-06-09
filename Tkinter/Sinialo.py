@@ -1,4 +1,7 @@
-import firstScreen
+
+import sys
+sys.path.append('Tkinter')
+from Tkinter.firstScreen import *
 
 def main():
 	firstScreen.main()
