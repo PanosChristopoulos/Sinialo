@@ -110,7 +110,7 @@ def main():
 	toolbar.update()
 	
 	cheapestArray = cheapest.cheapestFlightsCountry(sessionC)
-	#print("monoaek")
+	#print("mono")
 	#print (cheapestCountries)
 
 
