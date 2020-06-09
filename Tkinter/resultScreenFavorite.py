@@ -71,7 +71,7 @@ def main():
 	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
 	label3 = Label(root,image = image3)
 	label3.place(x=0,y=0)
-	photo=PhotoImage(file="img/button_4.png")
+	photo=PhotoImage(file="img/button_7.png")
 	photo4=PhotoImage(file="img/profile_2.png")
 	photo2=PhotoImage(file="img/button_5.png")
 	photo1=PhotoImage(file="img/button_6.png")
