@@ -6,7 +6,7 @@
 
 * [Πάνος Χριστόπουλος](https://github.com/PanosChristopoulos)
 * [Δημήτρης Κασελούρης](https://github.com/jimkaselouris)
-* [Μίλτος Αλημισης](https://github.com/milali21)
+* [Μίλτος Αλημίσης](https://github.com/milali21)
 * [Γιώργος Γεωργόπουλος](https://github.com/ggeorgopoulos1998)
 
 ### Απαιτήσεις
