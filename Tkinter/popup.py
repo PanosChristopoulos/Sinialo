@@ -12,7 +12,7 @@ import profil1
 
 database=mysql.connector.connect(
 user='root',
-password='Aekjim1998@',
+password='password',
 host='127.0.0.1', 
 database='sinialo',
 auth_plugin='mysql_native_password')

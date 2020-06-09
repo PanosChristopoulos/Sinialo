@@ -5,7 +5,7 @@ matplotlib.use("TkAgg")
 from mpl_toolkits.basemap import Basemap
 from matplotlib.figure import Figure
 from matplotlib import style
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk 
 import mysql.connector
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,6 +21,8 @@ import prefered
 import skyscanner
 import profil
 import resultScreenCheapest
+import resultScreenPopular
+import resultScreen
 
 def main():
 
@@ -48,7 +50,7 @@ def main():
 
 	database=mysql.connector.connect(
     user='root',
-    password='Aekjim1998@',
+    password='password',
     host='127.0.0.1', 
     database='sinialo',
     auth_plugin='mysql_native_password')
@@ -56,6 +58,10 @@ def main():
 	sessionC=loginScreen1.sess()
 	sessionName = loginScreen1.sessName()
 	
+	def openLink(url):
+		webbrowser.open_new(url)	
+
+
 	root = tk.Tk()
 	root.geometry("1300x800")
 	root.resizable(False,False)
@@ -96,9 +102,9 @@ def main():
 	
 	
 	canvas = FigureCanvasTkAgg(fig, root)  ## her7
-	canvas.show()
-	canvas.get_tk_widget().place( x = 380, y = 0,height=795, width=918)
-	toolbar = NavigationToolbar2TkAgg(canvas , root )
+	canvas.draw()
+	canvas.get_tk_widget().place(bordermode="outside", x = 380, y = 0,height=795, width=918)
+	toolbar = NavigationToolbar2Tk(canvas , root )
 	toolbar.update()
 	userPeople = selectorScreen.getPeople()
 	favoriteLocations = prefered.viewPreferences(sessionName)[0]

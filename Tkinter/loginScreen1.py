@@ -73,7 +73,7 @@ def main():
             result = mycursor.fetchone()
             country = result[0]
            
-            #print ( "eris")
+            print ( "aekk")
             print (country)
             global sessionCountry
             sessionCountry = country;

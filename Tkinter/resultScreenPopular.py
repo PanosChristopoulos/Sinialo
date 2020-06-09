@@ -5,7 +5,7 @@ matplotlib.use("TkAgg")
 from mpl_toolkits.basemap import Basemap
 from matplotlib.figure import Figure
 from matplotlib import style
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk 
 import mysql.connector
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,19 +20,23 @@ import time
 import profil
 import resultScreen
 import resultScreenCheapest
+import resultScreenFavorite
 
 
 def main():
 
 	database=mysql.connector.connect(
     user='root',
-    password='Aekjim1998@',
+    password='password',
     host='127.0.0.1', 
     database='sinialo',
     auth_plugin='mysql_native_password')
 	mycursor = database.cursor()
 	sessionC=loginScreen1.sess()
-	
+
+	def openLink(url):
+		webbrowser.open_new(url)
+
 	def resultScreenCheapestFrame():
 		root.destroy()
 		resultScreenCheapest.main()
@@ -66,7 +70,7 @@ def main():
 	image3 = ImageTk.PhotoImage(Image.open("img/resultScreen.png"))
 	label3 = Label(root,image = image3)
 	label3.place(x=0,y=0)
-	photo=PhotoImage(file="img/button_4.png")
+	photo=PhotoImage(file="img/button_7.png")
 	photo4=PhotoImage(file="img/profile_2.png")
 	photo2=PhotoImage(file="img/button_5.png")
 	photo1=PhotoImage(file="img/button_6.png")
@@ -97,9 +101,9 @@ def main():
 	
 	
 	canvas = FigureCanvasTkAgg(fig, root)  ## her7
-	canvas.show()
-	canvas.get_tk_widget().place( x = 380, y = 0,height=795, width=918)
-	toolbar = NavigationToolbar2TkAgg(canvas , root )
+	canvas.draw()
+	canvas.get_tk_widget().place(bordermode="outside", x = 380, y = 0,height=795, width=918)
+	toolbar = NavigationToolbar2Tk(canvas , root )
 	toolbar.update()
 	
 	#pack(side=tk.TOP, fill=tk.BOTH, expand=1)
